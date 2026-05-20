@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  /* 섹션 Fade-in 초기 상태 */
+  .section-hidden {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  /* JS에서 클래스 추가 시 전환 완료 상태 */
+  .section-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  /* 내비게이션 링크 기본/활성 상태 */
+  .nav-link {
+    @apply relative text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 text-sm font-medium;
+  }
+
+  .nav-link.active {
+    @apply text-primary-500 dark:text-primary-400;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-full h-0.5 bg-primary-500 dark:bg-primary-400 rounded-full;
+  }
+
+  /* 스킬 태그 — opacity 변형 클래스는 @apply 미지원으로 순수 CSS 사용 */
+  .skill-tag {
+    @apply px-4 py-2 text-primary-600 text-sm font-medium rounded-full border border-primary-200 transition-colors;
+    background-color: #eef2ff;
+  }
+
+  .skill-tag:hover {
+    background-color: #e0e7ff;
+  }
+
+  .dark .skill-tag {
+    background-color: rgba(49, 46, 129, 0.3);
+    color: #818cf8;
+    border-color: rgba(67, 56, 202, 0.4);
+  }
+
+  .dark .skill-tag:hover {
+    background-color: rgba(49, 46, 129, 0.5);
+  }
+
+  /* 버튼 */
+  .btn-primary {
+    @apply px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white font-semibold rounded-lg transition-all duration-200;
+  }
+}
+
+/* 타임라인 세로선 */
+.timeline-item {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: 1.2rem;
+  bottom: -2rem;
+  width: 2px;
+  background: linear-gradient(to bottom, #6366f1, #c7d2fe);
+}
+
+.timeline-item:last-child::before {
+  display: none;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -0.05rem;
+  top: 0.9rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  background: #6366f1;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #6366f1;
+}
+
+/* 다크모드 타임라인 점 테두리 */
+.dark .timeline-dot {
+  border-color: #111827;
+}
+
+/* 프로젝트 카드 호버 오버레이 */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(79, 70, 229, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
